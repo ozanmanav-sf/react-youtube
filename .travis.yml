@@ -5,26 +5,42 @@ jobs:
   include:
     - node_js: stable
       name: Test using React 16
+      script: npm run test:mocha
+
+      before_deploy:
+        - cd example && npm install && cd ..
+        - mkdir _deploy
+        - cp example/bundle.js example/index.html _deploy
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN
+        local-dir: _deploy
+        on:
+          branch: master
+
     - node_js: stable
-      before_script: npm install --no-save react@15 react-dom@15
       name: Test using React 15
+      before_script: npm install --no-save react@15 react-dom@15
+      script: npm run test:mocha
+
     - node_js: stable
-      before_script: npm install --no-save react@0.14 react-dom@0.14
       name: Test using React 0.14
+      before_script: npm install --no-save react@0.14 react-dom@0.14
+      script: npm run test:mocha
+
     - node_js: 10
       name: Test on Node.js 10
+      script: npm run test:mocha
+
     - node_js: 8
       name: Test on Node.js 8
+      script: npm run test:mocha
 
-before_deploy:
-  - cd example && npm install && cd ..
-  - mkdir _deploy
-  - cp example/bundle.js example/index.html _deploy
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  local-dir: _deploy
-  on:
-    branch: master
-    node: stable
+    - node_js: stable
+      name: Check lint
+      script: npm run test:lint
+
+    - node_js: stable
+      name: Check Typescript types
+      script: npm run test:types
