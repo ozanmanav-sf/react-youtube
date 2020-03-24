@@ -36,7 +36,9 @@ const render = (initialProps) => {
 
   const div = env.document.createElement('div');
   const container = new Promise((resolve) => {
-    ReactDOM.render(<Container {...initialProps} ref={resolve} />, div);
+    ReactDOM.render(<Container {...initialProps} />, div, function () {
+      resolve(this);
+    });
   });
 
   function rerender(newProps) {
