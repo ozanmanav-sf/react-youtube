@@ -6,10 +6,10 @@ jobs:
     - node_js: stable
       name: Test using React 16
     - node_js: stable
-      before_script: npm install --no-save react@15 react-dom@15 react-test-renderer@15
+      before_script: npm install --no-save react@15 react-dom@15
       name: Test using React 15
     - node_js: stable
-      before_script: npm install --no-save react@0.14 react-dom@0.14 react-test-renderer@1
+      before_script: npm install --no-save react@0.14 react-dom@0.14
       name: Test using React 0.14
     - node_js: 10
       name: Test on Node.js 10

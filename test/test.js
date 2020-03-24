@@ -1,21 +1,20 @@
 import React from 'react';
-import { createRenderer } from 'react-test-renderer/shallow';
 import expect from 'expect';
 import render from './util/render';
 import createYouTube from './util/createYouTube';
 
 describe('YouTube', () => {
-  it('should render a div with an ID and className', () => {
-    const { YouTube } = createYouTube();
-    const renderer = createRenderer();
-    renderer.render(<YouTube id="myId" className="myClassName" />);
-    expect(renderer.getRenderOutput()).toMatch({
-      type: 'div',
-      props: {
-        id: 'myId',
-        className: 'myClassName',
-      },
+  it('should render a div with an ID and className', async () => {
+    const { dom, unmount } = await render({
+      id: 'myId',
+      className: 'myClassName',
     });
+
+    expect(dom.childNodes[0]).toMatch({ tagName: 'DIV' });
+    expect(dom.childNodes[0].getAttribute('id')).toBe('myId');
+    expect(dom.childNodes[0].getAttribute('class')).toBe('myClassName');
+
+    unmount();
   });
 
   it('should create a YouTube player when mounted', async () => {

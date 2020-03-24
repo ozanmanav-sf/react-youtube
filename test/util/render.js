@@ -52,6 +52,7 @@ const render = (initialProps) => {
   }
 
   return component.player.then(() => ({
+    dom: div,
     sdkMock,
     playerMock,
     component,
