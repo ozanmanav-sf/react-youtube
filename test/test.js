@@ -1,11 +1,9 @@
-import React from 'react';
 import expect from 'expect';
 import render from './util/render';
-import createYouTube from './util/createYouTube';
 
 describe('YouTube', () => {
   it('should render a div with an ID and className', async () => {
-    const { dom, unmount } = await render({
+    const { dom } = await render({
       id: 'myId',
       className: 'myClassName',
     });
@@ -13,8 +11,6 @@ describe('YouTube', () => {
     expect(dom.childNodes[0]).toMatch({ tagName: 'DIV' });
     expect(dom.childNodes[0].getAttribute('id')).toBe('myId');
     expect(dom.childNodes[0].getAttribute('class')).toBe('myClassName');
-
-    unmount();
   });
 
   it('should create a YouTube player when mounted', async () => {
